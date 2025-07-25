@@ -1,0 +1,105 @@
+.sidebar {
+  width: 400px;
+  background: #e9f2f8;
+  height: 80vh;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #70b6d4;
+}
+
+.topContainer {
+  background: linear-gradient(to top, #e9f2f8 0%, #97cfe4 40%, #80ceeb 100%);
+}
+
+.windowHeader {
+  color: #e9f2f8;
+  font-weight: 700;
+  display: flex;
+  border-bottom: 1px solid #70b6d4;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+}
+
+.windowsLogo {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.profile {
+  text-align: center;
+  display: flex;
+  padding: 8px;
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 6px;
+    border: 1px solid #c2c9ce;
+  }
+
+  .username {
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  .status {
+    font-size: 0.9rem;
+    color: #3a7e3a;
+    margin-top: 0.25rem;
+  }
+}
+
+.avatarContainer {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #d5dee6 0%, #90aeca 100%);
+  border: 1px solid #c2c9ce;
+  border-radius: 15px;
+  box-shadow: 5px 3px 5px 1px rgba(0, 0, 0, 0.3);
+  margin-right: 12px;
+}
+
+.customDivider {
+  height: 1px;
+  background: #aacbe8;
+  margin: 0.5rem 0;
+}
+
+.menu {
+  ul {
+    list-style: none;
+    padding: 1rem;
+    margin: 0;
+
+    li {
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background-color: #c0daef;
+      }
+    }
+  }
+}
+
+.chatIcon {
+  transform: scale(0.7);
+}
