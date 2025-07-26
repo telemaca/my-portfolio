@@ -1,14 +1,23 @@
 .window {
-  width: 400px;
-  background: white;
+  width: 380px;
+  background-color: #ffffff;
   border: 2px solid #7ba7d7;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 4px 4px 0 #2c2c2c;
-  margin: 1rem;
+  font-family: "Segoe UI", Tahoma, sans-serif;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 40%;
+  top: 20%;
 }
 
 .content {
   padding: 1rem;
-  background-color: #f0f8ff;
+  background-color: #f2f9ff; // fondo tipo celeste muy pálido
+  color: #333;
+  font-size: 13px;
+  line-height: 1.4;
+  flex-grow: 1;
 }
