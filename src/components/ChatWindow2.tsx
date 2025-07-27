@@ -29,6 +29,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [dragging, setDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
+  const [isShaking, setIsShaking] = useState(false);
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -67,8 +68,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === "Enter") {
+  const handleKeyPress = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ): void => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
       handleSendMessage();
     }
   };
@@ -83,10 +87,94 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     ">>",
   ];
   const inputButtons = [
-    { icon: "Aa", className: styles.fontButton },
-    { icon: "😀", className: styles.emojiButton },
-    { icon: "📎", className: styles.attachButton },
-    { icon: "🎨", className: styles.formatButton },
+    {
+      icon: (
+        <Image
+          src="/letter-a-text.svg"
+          alt="Windows logo"
+          width={100}
+          height={100}
+          className={styles.fontIcon}
+        />
+      ),
+      className: styles.chatIcon,
+    },
+    {
+      icon: (
+        <Image
+          src="/emoticons.png"
+          alt="Windows logo"
+          width={100}
+          height={100}
+          className={styles.withAfter}
+        />
+      ),
+      className: styles.withAfter,
+    },
+    {
+      icon: (
+        <>
+          <Image
+            src="/sound-clip.png"
+            alt="Windows logo"
+            width={100}
+            height={100}
+            className={styles.soundIcon}
+          />
+          <p>Voice Clip</p>
+        </>
+      ),
+      className: styles.soundIcon,
+    },
+    {
+      icon: (
+        <Image
+          src="/wink.png"
+          alt="Windows logo"
+          width={100}
+          height={100}
+          className={styles.withAfter}
+        />
+      ),
+      className: styles.withAfter,
+    },
+    {
+      icon: (
+        <Image
+          src="/mountain-icon.png"
+          alt="Windows logo"
+          width={100}
+          height={100}
+          className={styles.withAfter}
+        />
+      ),
+      className: styles.withAfter,
+    },
+    {
+      icon: (
+        <Image
+          src="/gift-icon.png"
+          alt="Windows logo"
+          width={100}
+          height={100}
+          className={styles.withAfter}
+        />
+      ),
+      className: styles.withAfter,
+    },
+    {
+      icon: (
+        <Image
+          src="/zumbido.png"
+          alt="Windows logo"
+          width={100}
+          height={100}
+          className={styles.nudgeIcon}
+        />
+      ),
+      className: styles.fontButton,
+      onClick: () => triggerNudge(),
+    },
   ];
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -95,6 +183,15 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       x: e.clientX - position.x,
       y: e.clientY - position.y,
     };
+  };
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const triggerNudge = () => {
+    if (isShaking) return; // evitar spam
+    setIsShaking(true);
+    audioRef.current?.play();
+    setTimeout(() => setIsShaking(false), 500);
   };
 
   const windowRef = useRef<HTMLDivElement>(null);
@@ -136,8 +233,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 
   return (
     <div
-      className={styles.chatWindow}
-      onMouseDown={handleMouseDown}
+      className={`${styles.chatWindow} ${isShaking ? styles.shake : ""}`}
       style={{
         position: "absolute",
         left: position.x,
@@ -147,7 +243,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       ref={windowRef}
     >
       {/* Title Bar */}
-      <div className={styles.titleBar}>
+      <div className={styles.titleBar} onMouseDown={handleMouseDown}>
         <div className={styles.titleContent}>
           <Image
             src="/windows-logo.jpeg"
@@ -241,21 +337,21 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           {/* Input Area */}
           <div className={styles.inputArea}>
             <div className={styles.inputControls}>
-              <div className={styles.inpuIconsBar}>
+              <div className={styles.inputIconsBar}>
                 {inputButtons.map((btn, idx) => (
                   <button
                     key={idx}
                     className={`${styles.inputButton} ${btn.className}`}
+                    onClick={btn.onClick}
                   >
                     {btn.icon}
                   </button>
                 ))}
               </div>
               <div className={styles.inputWrapper}>
-                <input
-                  type="text"
+                <textarea
                   value={message}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                     setMessage(e.target.value)
                   }
                   onKeyDown={handleKeyPress}
@@ -267,8 +363,28 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                   <button className={styles.searchButton}>Buscar</button>
                 </div>
               </div>
-              <div className={styles.chatFooter}>A</div>
+              <div className={styles.chatFooter}>
+                <div className={`${styles.iconLabel} ${styles.stylus}`}>
+                  <Image
+                    src="/stylus.png"
+                    alt="Windows logo"
+                    width={100}
+                    height={120}
+                    className={styles.stylusIcon}
+                  />
+                </div>
+                <div className={`${styles.iconLabel} ${styles.letter}`}>
+                  <Image
+                    src="/letter-a-text.svg"
+                    alt="Windows logo"
+                    width={100}
+                    height={100}
+                    className={styles.fontIcon}
+                  />
+                </div>
+              </div>
             </div>
+            <audio ref={audioRef} src="/sounds/nudge.mp3" preload="auto" />
           </div>
         </div>
         <div className={styles.avatarArea}>

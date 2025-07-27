@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Sidebar from "@/components/Sidebar";
 import ChatWindow from "@/components/ChatWindow";
 import ChatWindow2 from "@/components/ChatWindow2";
@@ -51,7 +52,9 @@ export default function HomePage() {
         )}
       </div>
       <footer className="footer">
-        <div className="inicio-footer">Inicio</div>
+        <div className="inicio-footer">
+          <Image src="/start.png" alt="Windows logo" width={170} height={55} />
+        </div>
       </footer>
     </div>
   );

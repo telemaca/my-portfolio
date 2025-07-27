@@ -68,6 +68,31 @@ $font-family: "Tahoma", "MS Sans Serif", sans-serif;
   border: 1px solid #0054e3;
 }
 
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-6px, 8px);
+  }
+  40% {
+    transform: translate(16px, -6px);
+  }
+  60% {
+    transform: translate(-4px, 4px);
+  }
+  80% {
+    transform: translate(4px, -10px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
 // Main component
 .chatWindow {
   width: $window-width;
@@ -261,6 +286,11 @@ $font-family: "Tahoma", "MS Sans Serif", sans-serif;
   }
 }
 
+.nudgeLogo {
+  height: 30px;
+  width: 30px;
+}
+
 .avatarContainer {
   width: 150px;
   height: 150px;
@@ -439,11 +469,12 @@ $font-family: "Tahoma", "MS Sans Serif", sans-serif;
   gap: 3px;
   width: 100%;
 
-  .inpuIconsBar {
+  .inputIconsBar {
     display: flex;
     height: 25px;
-    background-color: #e9f2ff;
     border-bottom: 1px solid #9ea7ae;
+    justify-content: space-around;
+    background: linear-gradient(#bfd6e9 0%, #e9f2ff 50%, #bfd6e9 100%);
   }
 
   .inputWrapper {
@@ -461,11 +492,19 @@ $font-family: "Tahoma", "MS Sans Serif", sans-serif;
     .searchButton {
       width: 80px;
       border-radius: 8px;
-      color: rgb(59, 59, 59);
-      font-size: 12px;
-      @include xp-gradient(#fafdfe, #cedcef);
+      color: rgb(82, 80, 80);
+      font-size: 10px;
+      background: linear-gradient(
+        135deg,
+        #e9f2ff 0%,
+        #e9f2ff 60%,
+        #bfd6e9 100%
+      );
+
       border: 1px solid #9ea7ae;
       box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+      font-family: "Courier New", Courier, monospace;
+      font-weight: 800;
 
       &:hover {
         box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.2);
@@ -484,8 +523,47 @@ $font-family: "Tahoma", "MS Sans Serif", sans-serif;
 
   .chatFooter {
     height: 25px;
-    background-color: #e9f2ff;
+    background: linear-gradient(#bfd6e9 0%, #e9f2ff 50%, #bfd6e9 100%);
     border-top: 1px solid #9ea7ae;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 6px;
+
+    .iconLabel {
+      border: 1px solid gray;
+      border-top: none;
+      width: 30px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      height: 20px;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.letter {
+        background-color: white;
+        border-top: 1px solid white;
+        margin-top: -1px;
+        height: 21px;
+      }
+
+      &.stylus {
+        background-color: #eff5fc;
+      }
+    }
+
+    .stylusIcon {
+      height: 17px;
+      width: 12px;
+    }
+
+    .fontIcon {
+      border-bottom: 2px solid orange;
+      width: 20px;
+      padding-bottom: 1px;
+      height: 15px;
+    }
   }
 }
 
@@ -507,6 +585,7 @@ $font-family: "Tahoma", "MS Sans Serif", sans-serif;
   font-family: $font-family;
   background: white;
   border: 1px solid #fff;
+  resize: none;
 
   &:focus {
     outline: none;
@@ -514,14 +593,43 @@ $font-family: "Tahoma", "MS Sans Serif", sans-serif;
 }
 
 .inputButton {
-  @include xp-button-raised;
-  width: 23px;
   height: 23px;
   font-size: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  border: none;
+  background-color: transparent;
+
+  img {
+    height: 18px;
+    width: 18px;
+  }
+
+  .nudgeIcon {
+    height: 35px;
+    width: 35px;
+  }
+
+  &.soundIcon {
+    gap: 3px;
+
+    p {
+      font-size: 9px;
+      font-family: "Courier New", Courier, monospace;
+      margin: 0;
+    }
+  }
+
+  &.withAfter {
+    &::after {
+      content: "▾";
+      color: black;
+      position: relative;
+      right: -3px;
+    }
+  }
 }
 
 // Contact List
