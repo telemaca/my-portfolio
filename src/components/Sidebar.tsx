@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import styles from "./Sidebar.module.scss";
+import { Avatar } from "./Avatar";
 
 type Props = {
   onOpenWindow: (id: string) => void;
@@ -22,15 +23,7 @@ const Sidebar = ({ onOpenWindow }: Props) => {
           <div>Windows Live Messenger</div>
         </div>
         <div className={styles.profile}>
-          <div className={styles.avatarContainer}>
-            <Image
-              src="/avatar.png"
-              alt="Avatar"
-              width={100}
-              height={100}
-              className={styles.avatar}
-            />
-          </div>
+          <Avatar />
           <div>
             <div className={styles.username}>Flor_Holzmann</div>
             {/* <div className={styles.status}>🟢 En línea</div> */}

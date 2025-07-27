@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import ChatWindow from "@/components/ChatWindow";
+import ChatWindow2 from "@/components/ChatWindow2";
 
 export default function HomePage() {
   const [openWindows, setOpenWindows] = useState<string[]>([]);
@@ -21,9 +22,14 @@ export default function HomePage() {
 
       <div className="flex flex-wrap p-4">
         {openWindows.includes("about") && (
-          <ChatWindow title="Sobre mí" onClose={() => handleClose("about")}>
-            Contenido personal acá.
-          </ChatWindow>
+          <ChatWindow2
+            contactName="Jane Smith"
+            contactStatus="Available"
+            contactMessage="can summer come back now?"
+            onClose={() => handleClose("about")}
+            onMinimize={() => console.log("Minimizar")}
+            onMaximize={() => console.log("Maximizar")}
+          />
         )}
         {openWindows.includes("stack") && (
           <ChatWindow

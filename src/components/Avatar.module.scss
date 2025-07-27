@@ -1,0 +1,19 @@
+.avatarContainer {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #d5dee6 0%, #90aeca 100%);
+  border: 1px solid #c2c9ce;
+  border-radius: 15px;
+  box-shadow: 5px 3px 5px 1px rgba(0, 0, 0, 0.3);
+  margin-right: 12px;
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 6px;
+    border: 1px solid #c2c9ce;
+  }
+}
