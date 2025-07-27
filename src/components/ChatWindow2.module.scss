@@ -1,6 +1,6 @@
 // Windows XP Variables
 $window-width: 600px;
-$window-height: 520px;
+$window-height: 533px;
 
 // Windows XP Blue Theme Colors
 $xp-title-blue-start: #0054e3;
@@ -97,7 +97,7 @@ $font-family: "Tahoma", "MS Sans Serif", sans-serif;
 .chatWindow {
   width: $window-width;
   height: $window-height;
-  background: #d4e4f6;
+  background: #d9e7f7;
   @include xp-window-border;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
   font-family: $font-family;

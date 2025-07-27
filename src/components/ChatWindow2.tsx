@@ -77,15 +77,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     }
   };
 
-  const menuItems = [
-    "Photos",
-    "Files",
-    "Video",
-    "Call",
-    "Games",
-    "Activities",
-    ">>",
-  ];
+  const menuItems = ["File", "Edit", "Actions", "Tools", "Help"];
   const inputButtons = [
     {
       icon: (
@@ -293,19 +285,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       </div>
 
       {/* Contact Info */}
-      <div className={styles.contactInfo}>
-        <div className={styles.contactContent}>
-          <div className={styles.avatar}>
-            <div className={styles.avatarInner}>
-              <div className={styles.avatarCore}></div>
-            </div>
-          </div>
-          <div className={styles.contactDetails}>
-            <div className={styles.contactName}>{contactName}</div>
-            <div className={styles.contactStatus}>({contactStatus})</div>
-            <div className={styles.contactMessage}>{contactMessage}</div>
-          </div>
-        </div>
+      <div>
+        <Image
+          src="/chat-header.png"
+          alt="Windows logo"
+          width={600}
+          height={65}
+        />
       </div>
 
       {/* Chat Area */}
