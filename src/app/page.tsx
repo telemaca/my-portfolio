@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Sidebar from "@/components/Sidebar";
+import Sidebar2 from "@/components/Sidebar2";
 import ChatWindow from "@/components/ChatWindow";
 import ChatWindow2 from "@/components/ChatWindow2";
 
@@ -19,7 +19,7 @@ export default function HomePage() {
 
   return (
     <div className="flex page-container">
-      <Sidebar onOpenWindow={handleOpen} />
+      <Sidebar2 onOpenWindow={handleOpen} />
 
       <div className="flex flex-wrap p-4">
         {openWindows.includes("about") && (
