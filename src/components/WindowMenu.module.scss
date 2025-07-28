@@ -1,0 +1,50 @@
+@use "../styles/variables.scss" as vars;
+@use "../styles/mixins.scss" as mix;
+
+// Menu Bar - Windows XP Style
+.menuBar {
+  height: 22px;
+  background: vars.$xp-menu-bar;
+  border-bottom: 1px solid vars.$xp-button-shadow;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+
+.menuItems {
+  display: flex;
+  gap: 12px;
+}
+
+.menuItem {
+  font-size: 11px;
+  color: black;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 3px;
+
+  &:hover {
+    @include mix.xp-gradient(#ffe6cc, #ffcc99);
+    border: 1px solid #ff9933;
+  }
+}
+
+.menuActions {
+  display: flex;
+  gap: 4px;
+}
+
+.actionButton {
+  font-size: 11px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+
+  &:hover {
+    @include mix.xp-gradient(#ffe6cc, #ffcc99);
+    border: 1px solid #ff9933;
+  }
+}

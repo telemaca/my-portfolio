@@ -1,0 +1,43 @@
+@use "./variables.scss" as *;
+@use "sass:color";
+
+@mixin xp-gradient($start-color, $end-color) {
+  background: $start-color;
+  background: linear-gradient(to bottom, $start-color 0%, $end-color 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start-color}', endColorstr='#{$end-color}', GradientType=0);
+}
+
+@mixin xp-button-raised {
+  background: $xp-button-face;
+  border-top: 1px solid $xp-border-3d-light;
+  border-left: 1px solid $xp-border-3d-light;
+  border-right: 1px solid $xp-button-shadow;
+  border-bottom: 1px solid $xp-button-dark-shadow;
+
+  &:hover {
+    background: color.adjust($xp-button-face, $lightness: 3%);
+    border-top: 1px solid $xp-border-3d-light;
+    border-left: 1px solid $xp-border-3d-light;
+    border-right: 1px solid $xp-button-shadow;
+    border-bottom: 1px solid $xp-button-dark-shadow;
+  }
+
+  &:active {
+    background: color.adjust($xp-button-face, $lightness: -3%);
+    border-top: 1px solid $xp-button-dark-shadow;
+    border-left: 1px solid $xp-button-shadow;
+    border-right: 1px solid $xp-border-3d-light;
+    border-bottom: 1px solid $xp-border-3d-light;
+  }
+}
+
+@mixin xp-inset-border {
+  border-top: 1px solid $xp-button-shadow;
+  border-left: 1px solid $xp-button-shadow;
+  border-right: 1px solid $xp-border-3d-light;
+  border-bottom: 1px solid $xp-border-3d-light;
+}
+
+@mixin xp-window-border {
+  border: 1px solid #0054e3;
+}

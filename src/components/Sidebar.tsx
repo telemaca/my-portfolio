@@ -3,25 +3,21 @@
 import Image from "next/image";
 import styles from "./Sidebar.module.scss";
 import { Avatar } from "./Avatar";
+import WindowHeader from "./WindowHeader";
+import WindowMenu from "./WindowMenu";
 
 type Props = {
   onOpenWindow: (id: string) => void;
 };
 
+const mainMenuItems = ["File", "Contacts", "Actions", "Tools", "Help"];
+
 const Sidebar = ({ onOpenWindow }: Props) => {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.topContainer}>
-        <div className={styles.windowHeader}>
-          <Image
-            src="/windows-logo.jpeg"
-            alt="Windows logo"
-            width={100}
-            height={100}
-            className={styles.windowsLogo}
-          />
-          <div>Windows Live Messenger</div>
-        </div>
+        <WindowHeader />
+        <WindowMenu menuItems={mainMenuItems} />
         <div className={styles.profile}>
           <Avatar />
           <div>
@@ -34,7 +30,7 @@ const Sidebar = ({ onOpenWindow }: Props) => {
       <div className={styles.customDivider}></div>
 
       <div className={styles.menu}>
-        <h3>Mis ventanas</h3>
+        <h3>Info personal</h3>
         <ul>
           <li onClick={() => onOpenWindow("about")}>
             <Image
@@ -57,7 +53,7 @@ const Sidebar = ({ onOpenWindow }: Props) => {
             />
             <div>Stack técnico</div>
           </li>
-          <li onClick={() => onOpenWindow("projects")}>
+          <li onClick={() => onOpenWindow("work")}>
             {" "}
             <Image
               src="/msn-online.png"
@@ -66,18 +62,78 @@ const Sidebar = ({ onOpenWindow }: Props) => {
               height={37}
               className={styles.chatIcon}
             />
-            <div>Proyectos</div>
+            <div>Experiencia laboral</div>
+          </li>
+        </ul>
+        <h3>Mis proyectos</h3>
+        <ul>
+          <li onClick={() => onOpenWindow("about")}>
+            <Image
+              src="/idle.png"
+              alt="Msn logo"
+              width={32}
+              height={37}
+              className={styles.chatIcon}
+            />
+            <div>Juegos de palabras app</div>
+          </li>
+          <li onClick={() => onOpenWindow("stack")}>
+            {" "}
+            <Image
+              src="/idle.png"
+              alt="Msn logo"
+              width={32}
+              height={37}
+              className={styles.chatIcon}
+            />
+            <div>Etimología diaria</div>
+          </li>
+          <li onClick={() => onOpenWindow("projects")}>
+            {" "}
+            <Image
+              src="/idle.png"
+              alt="Msn logo"
+              width={32}
+              height={37}
+              className={styles.chatIcon}
+            />
+            <div>Pasapalabra!</div>
           </li>
           <li onClick={() => onOpenWindow("contact")}>
             {" "}
             <Image
-              src="/msn-online.png"
+              src="/idle.png"
               alt="Msn logo"
               width={32}
               height={37}
               className={styles.chatIcon}
             />
-            <div>Contacto</div>
+            <div>My EnglishBuddy</div>
+          </li>
+          <li onClick={() => onOpenWindow("contact")}>
+            {" "}
+            <Image
+              src="/idle.png"
+              alt="Msn logo"
+              width={32}
+              height={37}
+              className={styles.chatIcon}
+            />
+            <div>Rock, Paper, Scissors</div>
+          </li>
+        </ul>
+        <h3>Contacto</h3>
+        <ul>
+          <li onClick={() => onOpenWindow("contact")}>
+            {" "}
+            <Image
+              src="/offline.png"
+              alt="Msn logo"
+              width={32}
+              height={37}
+              className={styles.chatIcon}
+            />
+            <div>Escribime!</div>
           </li>
         </ul>
       </div>

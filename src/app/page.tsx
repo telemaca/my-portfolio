@@ -24,29 +24,23 @@ export default function HomePage() {
       <div className="flex flex-wrap p-4">
         {openWindows.includes("about") && (
           <ChatWindow2
-            contactName="Jane Smith"
-            contactStatus="Available"
-            contactMessage="can summer come back now?"
             onClose={() => handleClose("about")}
             onMinimize={() => console.log("Minimizar")}
             onMaximize={() => console.log("Maximizar")}
           />
         )}
         {openWindows.includes("stack") && (
-          <ChatWindow
-            title="Stack técnico"
-            onClose={() => handleClose("stack")}
-          >
+          <ChatWindow onClose={() => handleClose("stack")}>
             Herramientas y tecnologías.
           </ChatWindow>
         )}
         {openWindows.includes("projects") && (
-          <ChatWindow title="Proyectos" onClose={() => handleClose("projects")}>
+          <ChatWindow onClose={() => handleClose("projects")}>
             Lista de proyectos.
           </ChatWindow>
         )}
         {openWindows.includes("contact") && (
-          <ChatWindow title="Contacto" onClose={() => handleClose("contact")}>
+          <ChatWindow onClose={() => handleClose("contact")}>
             Formulario o medios de contacto.
           </ChatWindow>
         )}

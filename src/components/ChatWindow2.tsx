@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatWindow2.module.scss";
+import WindowHeader from "./WindowHeader";
+import WindowMenu from "./WindowMenu";
 import Image from "next/image";
 
 interface Message {
@@ -18,10 +20,9 @@ interface ChatWindowProps {
   onMaximize?: () => void;
 }
 
+const menuItems = ["File", "Edit", "Actions", "Tools", "Help"];
+
 const ChatWindow: React.FC<ChatWindowProps> = ({
-  contactName = "Jane Smith",
-  contactStatus = "Available",
-  contactMessage = "can summer come back now?",
   onClose,
   onMinimize,
   onMaximize,
@@ -77,7 +78,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     }
   };
 
-  const menuItems = ["File", "Edit", "Actions", "Tools", "Help"];
   const inputButtons = [
     {
       icon: (
@@ -235,56 +235,17 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       ref={windowRef}
     >
       {/* Title Bar */}
-      <div className={styles.titleBar} onMouseDown={handleMouseDown}>
-        <div className={styles.titleContent}>
-          <Image
-            src="/windows-logo.jpeg"
-            alt="Windows logo"
-            width={100}
-            height={100}
-            className={styles.windowsLogo}
-          />
-          <span className={styles.titleText}>Windows Live Messenger</span>
-        </div>
-        <div className={styles.windowControls}>
-          <button
-            onClick={onMinimize}
-            className={`${styles.controlButton} ${styles.minimizeButton}`}
-          >
-            _
-          </button>
-          <button
-            onClick={onMaximize}
-            className={`${styles.controlButton} ${styles.maximizeButton}`}
-          >
-            □
-          </button>
-          <button
-            onClick={onClose}
-            className={`${styles.controlButton} ${styles.closeButton}`}
-          >
-            ×
-          </button>
-        </div>
-      </div>
+      <WindowHeader
+        handleMouseDown={handleMouseDown}
+        onMaximize={onMaximize}
+        onMinimize={onMinimize}
+        onClose={onClose}
+      />
 
       {/* Menu Bar */}
-      <div className={styles.menuBar}>
-        <div className={styles.menuItems}>
-          {menuItems.map((item) => (
-            <span key={item} className={styles.menuItem}>
-              {item}
-            </span>
-          ))}
-        </div>
-        <div className={styles.menuActions}>
-          <button className={styles.actionButton}>✏️</button>
-          <button className={styles.actionButton}>📁</button>
-          <button className={styles.actionButton}>▼</button>
-        </div>
-      </div>
+      <WindowMenu menuItems={menuItems} />
 
-      {/* Contact Info */}
+      {/* Chat Actions Fixed */}
       <div>
         <Image
           src="/chat-header.png"
@@ -394,21 +355,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Contact List Area */}
-      {/* <div className={styles.contactList}>
-        <div className={styles.contactListContent}>
-          <div className={styles.avatar}>
-            <div className={styles.avatarInner}>
-              <div className={styles.avatarCore}></div>
-            </div>
-          </div>
-          <div className={styles.statusIndicators}>
-            <div className={`${styles.statusDot} ${styles.onlineStatus}`}></div>
-            <div className={`${styles.statusDot} ${styles.awayStatus}`}></div>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };
