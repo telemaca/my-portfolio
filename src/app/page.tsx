@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Sidebar2 from "@/components/Sidebar2";
+import Sidebar from "@/components/Sidebar";
 import ChatWindow from "@/components/ChatWindow";
-import ChatWindow2 from "@/components/ChatWindow2";
+import contactsData from "@/data/contactsData";
 
 export default function HomePage() {
   const [openWindows, setOpenWindows] = useState<string[]>([]);
@@ -19,31 +19,26 @@ export default function HomePage() {
 
   return (
     <div className="flex page-container">
-      <Sidebar2 onOpenWindow={handleOpen} />
+      <Sidebar onOpenWindow={handleOpen} />
 
       <div className="flex flex-wrap p-4">
-        {openWindows.includes("about") && (
-          <ChatWindow2
-            onClose={() => handleClose("about")}
-            onMinimize={() => console.log("Minimizar")}
-            onMaximize={() => console.log("Maximizar")}
-          />
-        )}
-        {openWindows.includes("stack") && (
-          <ChatWindow onClose={() => handleClose("stack")}>
-            Herramientas y tecnologías.
-          </ChatWindow>
-        )}
-        {openWindows.includes("projects") && (
-          <ChatWindow onClose={() => handleClose("projects")}>
-            Lista de proyectos.
-          </ChatWindow>
-        )}
-        {openWindows.includes("contact") && (
-          <ChatWindow onClose={() => handleClose("contact")}>
-            Formulario o medios de contacto.
-          </ChatWindow>
-        )}
+        {openWindows.map((id) => {
+          const contact = Object.values(contactsData)
+            .flat()
+            .find((c) => c.onClick === id);
+
+          if (!contact) return null;
+
+          return (
+            <ChatWindow
+              key={id}
+              chatType={contact.chatType}
+              onClose={() => handleClose(id)}
+              onMinimize={() => console.log("Minimizar")}
+              onMaximize={() => console.log("Maximizar")}
+            />
+          );
+        })}
       </div>
       <footer className="footer">
         <div className="inicio-footer">
