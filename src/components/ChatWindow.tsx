@@ -17,6 +17,14 @@ interface Message {
   fileName?: string;
 }
 
+type AutoMessage = {
+  text: string;
+  delay: number;
+  isFile?: boolean;
+  fileName?: string;
+  fileUrl?: string;
+};
+
 interface ChatWindowProps {
   contactName?: string;
   contactStatus?: string;
@@ -70,7 +78,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     }
   }, [chatType]);
 
-  const startAutoMessageSequence = (messageSequence: any[]) => {
+  const startAutoMessageSequence = (messageSequence: AutoMessage[]) => {
     messageSequence.forEach((msgData, index) => {
       const timeout = setTimeout(() => {
         // Mostrar typing indicator
