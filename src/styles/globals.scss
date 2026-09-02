@@ -20,6 +20,30 @@ body {
   width: 100vw;
   height: 100vh;
   position: relative;
+
+  .msn-logo__container {
+    width: 170px;
+    height: 150px;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+      color: white;
+      cursor: default;
+    }
+
+    &:hover {
+      background: #0000001c;
+    }
+
+    &.selected {
+      background: rgba(8, 90, 162, 0.33);
+    }
+  }
 }
 
 .footer {
@@ -29,8 +53,60 @@ body {
   background-color: #245adc;
   bottom: 0;
   overflow: hidden;
+  box-shadow: inset -20px 1px 16px 9px #5676ff;
+  cursor: default;
 
   .inicio-footer {
     margin-left: -10px;
+  }
+
+  .right-corner {
+    width: 180px;
+    height: 100%;
+    background-color: #0e8be5;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 9;
+    box-shadow: inset 4px 0 16px 9px #16b8f0;
+    border-left: 1px solid #45425a;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    > div {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .bottom-arrow {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: block;
+    height: 20px;
+    width: 20px;
+    background: radial-gradient(circle at left top, #72aedf 0%, #0d86e6 100%);
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    right: 170px;
+    z-index: 11;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__bg {
+      display: block;
+      height: 24px;
+      width: 24px;
+      background: radial-gradient(circle at left top, #0a1b48 0%, #89c0e2 100%);
+      border-radius: 50%;
+      position: absolute;
+      top: 13px;
+      right: 168px;
+      z-index: 10;
+    }
   }
 }

@@ -1,15 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { useLang } from "@/context/LanguageContext";
 import styles from "./Sidebar.module.scss";
 import { Avatar } from "./Avatar";
 import WindowHeader from "./WindowHeader";
 import WindowMenu from "./WindowMenu";
 import contactsData from "@/data/contactsData";
 import { mainMenuItems } from "@/data/menuData";
+import { Contact } from "@/data/contactsData";
 
 type Props = {
   onOpenWindow: (id: string) => void;
+  onCloseSidebar: (v: boolean) => void;
 };
 
 const StatusIcon = ({ status }: { status: string }) => {
@@ -28,7 +31,7 @@ const ContactItem = ({
   contact,
   onOpenWindow,
 }: {
-  contact: (typeof contactsData.personal)[0];
+  contact: Contact;
   onOpenWindow: (id: string, chatType: string) => void;
 }) => {
   return (
@@ -42,20 +45,21 @@ const ContactItem = ({
   );
 };
 
-const Sidebar = ({ onOpenWindow }: Props) => {
+const Sidebar = ({ onOpenWindow, onCloseSidebar }: Props) => {
+  const { t, lang } = useLang();
   return (
     <aside className={styles.sidebar}>
       <div className={styles.topContainer}>
-        <WindowHeader />
-        <WindowMenu menuItems={mainMenuItems} />
+        <WindowHeader onClose={() => onCloseSidebar(false)} />
+        <WindowMenu menuItems={mainMenuItems[lang]} />
 
         <div className={styles.profile}>
           <Avatar />
           <div>
             <div className={styles.username}>
-              Flor Holzmann <span>(Online)</span>
+              Flor Holzmann <span>{t("online")}</span>
             </div>
-            <div className={styles.status}>Developer</div>
+            <div className={styles.status}>{t("profession")}</div>
           </div>
         </div>
 
@@ -72,7 +76,7 @@ const Sidebar = ({ onOpenWindow }: Props) => {
           }}
         >
           <StatusIcon status="msn-online" />
-          Add a Contact
+          {t("addContact")}
         </div>
       </div>
 
@@ -86,9 +90,11 @@ const Sidebar = ({ onOpenWindow }: Props) => {
         <div className={styles.contactsList}>
           <div>
             <div className={styles.listSection}>
-              <h4>🧑‍💻 Info personal ({contactsData.personal.length})</h4>
+              <h4>
+                🧑‍💻 {t("personalInfo")} ({contactsData[lang].personal.length})
+              </h4>
               <ul>
-                {contactsData.personal.map((contact, index) => (
+                {contactsData[lang].personal.map((contact, index) => (
                   <ContactItem
                     key={index}
                     contact={contact}
@@ -99,9 +105,11 @@ const Sidebar = ({ onOpenWindow }: Props) => {
             </div>
 
             <div className={styles.listSection}>
-              <h4>💼 Mis proyectos ({contactsData.projects.length})</h4>
+              <h4>
+                💼 {t("proyectInfo")} ({contactsData[lang].projects.length})
+              </h4>
               <ul>
-                {contactsData.projects.map((contact, index) => (
+                {contactsData[lang].projects.map((contact, index) => (
                   <ContactItem
                     key={index}
                     contact={contact}
@@ -112,9 +120,11 @@ const Sidebar = ({ onOpenWindow }: Props) => {
             </div>
 
             <div className={styles.listSection}>
-              <h4>📧 Contacto ({contactsData.contact.length})</h4>
+              <h4>
+                📧 {t("contactInfo")} ({contactsData[lang].contact.length})
+              </h4>
               <ul>
-                {contactsData.contact.map((contact, index) => (
+                {contactsData[lang].contact.map((contact, index) => (
                   <ContactItem
                     key={index}
                     contact={contact}

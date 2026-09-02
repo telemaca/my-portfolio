@@ -1,3 +1,32 @@
+@keyframes minimizeWindow {
+  0% {
+    transform: translateY(0) scale(1) skewX(0deg);
+    opacity: 1;
+    transform-origin: center bottom; /* El punto de anclaje abajo ayuda al efecto */
+  }
+  30% {
+    /* La ventana se deforma un toque hacia el costado mientras empieza a caer */
+    transform: translateY(20vh) scale(0.7, 0.8) skewX(-10deg);
+    opacity: 0.9;
+  }
+  70% {
+    /* Se vuelve un fideo diagonal super fino llegando a la barra */
+    transform: translateY(45vh) scale(0.2, 0.4) skewX(-25deg);
+    opacity: 0.5;
+  }
+  100% {
+    /* Desaparece por completo en la base de la pantalla */
+    transform: translateY(60vh) scale(0, 0) skewX(-40deg);
+    opacity: 0;
+  }
+}
+
+// Clase para disparar la animación
+.windowMinimize {
+  /* 0.35s es la velocidad exacta que usaba el motor gráfico de XP */
+  animation: minimizeWindow 0.35s cubic-bezier(0.47, 0, 0.745, 0.71) forwards;
+}
+
 .sidebar {
   width: 400px;
   background: #e9f2f8;
@@ -8,7 +37,7 @@
   flex-direction: column;
   position: absolute;
   top: 5%;
-  left: 10%;
+  left: 250px;
   border-radius: 8px 8px 0 0;
   overflow: hidden;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
@@ -105,7 +134,8 @@
   border: 2px solid #8bb8da;
   border-radius: 4px;
   margin-right: 8px;
-  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.8),
+  box-shadow:
+    inset 1px 1px 2px rgba(255, 255, 255, 0.8),
     inset -1px -1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -219,16 +249,18 @@
         transition: background 0.1s ease;
         display: flex;
         align-items: center;
-        height: 20px;
+        height: 22px;
         padding: 2px 8px;
         font-size: 11px;
         color: #000;
+        border: 1px solid transparent;
 
         &:hover {
           background: linear-gradient(to right, #e0f0ff 0%, #c0e0ff 100%);
           border: 1px solid #4a90e2;
-          margin: 0 4px;
+          margin: 0 1px;
           border-radius: 2px;
+          transition: all 0.5s;
         }
 
         .contactName {
@@ -299,6 +331,7 @@
     &:hover {
       background: #d0e0f0;
       border: 1px solid #4a90e2;
+      transition: all 3s;
     }
   }
 }

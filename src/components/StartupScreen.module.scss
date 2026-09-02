@@ -1,0 +1,283 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.loadingXPvideo {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingPage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: space-between;
+  color: rgb(236, 247, 255);
+}
+
+.startUpBar {
+  height: 100px;
+  background-color: #00309c;
+  width: 100%;
+}
+
+.clickMessage {
+  position: fixed;
+  pointer-events: none;
+  white-space: nowrap;
+  transform: translate(0, 0);
+}
+
+.mainLoading {
+  background-color: #5a7edc;
+  height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  font-family: Arial;
+
+  &.welcomeModifier {
+    cursor: progress;
+  }
+
+  .light {
+    position: absolute;
+    height: calc(100vh - 200px);
+    width: 100vw;
+    background: radial-gradient(
+      circle at left top,
+      #b9c7ea 0%,
+      #5a7edc 40%,
+      transparent 100%
+    );
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    width: 80%;
+    height: 3px;
+    position: absolute;
+    z-index: 10;
+  }
+
+  &::before {
+    top: 100px;
+    background: linear-gradient(
+      to right,
+      #b9c7ea00 0%,
+      #ebf6ff 50%,
+      #5a7edc 100%
+    );
+  }
+
+  &::after {
+    bottom: 100px;
+    background: linear-gradient(
+      to right,
+      #5a7edc 0%,
+      #ebf6ff 50%,
+      #5a7edc 100%
+    );
+  }
+
+  h1 {
+    color: rgb(236, 247, 255);
+    font-size: 3rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    z-index: 9;
+    font-style: italic;
+  }
+
+  .userSelection {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    animation: fadeIn 2s linear;
+
+    &.fadeOutModifier {
+      cursor: wait;
+      animation: fadeOut 3s linear;
+    }
+  }
+
+  .halfLeft,
+  .halfRight {
+    width: 50%;
+    font-size: 1.4rem;
+  }
+
+  .halfRight {
+    margin-left: 65px;
+  }
+
+  .halfLeft {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    position: relative;
+
+    &::after {
+      content: "";
+      width: 2px;
+      height: 550px;
+      background: linear-gradient(#5a7edc 0%, #a0ceef 50%, #5a7edc 100%);
+      position: absolute;
+      right: -40px;
+      top: -120px;
+    }
+  }
+
+  .pseudoLine {
+    position: relative;
+
+    &::after,
+    &::before {
+      content: "";
+      width: 150px;
+      height: 1px;
+      background: linear-gradient(to right, #89adc7 0%, #5a7edc 100%);
+      position: absolute;
+      left: 69%;
+      z-index: 9;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+
+    &::after {
+      top: -1px;
+    }
+
+    &::before {
+      top: -98px;
+    }
+  }
+}
+
+.loadingAvatar {
+  cursor: pointer;
+  display: flex;
+  padding: 12px 24px 12px 12px;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  width: 70%;
+
+  /* Required for pseudo-element positioning */
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+
+  /* Default state borders */
+  border: 1px solid transparent;
+  border-right: 1px solid #5a7edc;
+  background: transparent;
+
+  /* Smooth transition for borders and background fade */
+  transition: border-color 0.7s ease;
+
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .avatarContainer {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #d5dee6 0%, #90aeca 100%);
+    border: 1px solid #c2c9ce;
+    border-radius: 12px;
+    box-shadow: 5px 3px 5px 1px rgba(0, 0, 0, 0.3);
+    margin-right: 12px;
+
+    .avatar {
+      width: 66px;
+      height: 66px;
+      border-radius: 6px;
+      border: 1px solid #c2c9ce;
+    }
+  }
+
+  p {
+    margin: 4px 0;
+    font-size: 1.2rem;
+    color: #ffffff;
+
+    + span {
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+  }
+
+  /* Hidden XP Gradient layer */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* Sits behind the text/avatar */
+
+    background: linear-gradient(
+      to right,
+      #063fc0 0%,
+      #00309c 50%,
+      #5a7edc 100%
+    );
+
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+
+  /* Hover State */
+  &:hover {
+    border-color: #89adc7;
+    border-right-color: #5a7edc; /* Keeps right border locked */
+    // box-shadow: 20px 20px 15px #000;
+
+    + .pseudoLine {
+      &::after,
+      &::before {
+        opacity: 100%;
+      }
+    }
+
+    &::before {
+      opacity: 1; /* Smoothly fades the gradient in */
+    }
+
+    .avatarContainer {
+      background: linear-gradient(to bottom, #c1a63b 0%, #aea60c 100%);
+      border: 1px solid #dfc30f;
+
+      .avatar {
+        border: 1px solid #dfc30f;
+      }
+    }
+  }
+}

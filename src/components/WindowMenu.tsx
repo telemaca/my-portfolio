@@ -9,9 +9,9 @@ const WindowMenu = ({ menuItems }: Props) => {
     <div className={styles.menuBar}>
       <div className={styles.menuItems}>
         {menuItems.map((item) => (
-          <span key={item} className={styles.menuItem}>
-            {item}
-          </span>
+          <div key={item} className={styles.menuItem}>
+            <span>{item}</span>
+          </div>
         ))}
       </div>
       <div className={styles.menuActions}>

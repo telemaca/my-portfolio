@@ -76,6 +76,13 @@
   position: relative;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
+  p {
+    position: absolute;
+    margin: 4px 0 0;
+    color: blue;
+    font-weight: bold;
+  }
+
   &::before {
     content: "◀";
     color: #6e6b6b;

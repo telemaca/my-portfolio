@@ -1,0 +1,112 @@
+.msnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  background-color: transparent;
+}
+
+.msnOrbit {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  transform-style: preserve-3d;
+}
+
+/* Base idéntica para ambos personajes */
+.buddy {
+  position: absolute;
+  width: 24px;
+  height: 40px;
+  top: calc(50% - 20px);
+  left: calc(50% - 12px);
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: content-box;
+
+  .head {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+
+  .body {
+    width: 28px;
+    height: 24px;
+    border-radius: 50% 50% 4px 4px;
+  }
+}
+
+/* Aplicamos los colores nostálgicos */
+.blueBuddy {
+  filter: hue-rotate(120deg);
+  /* El azul arranca la órbita desde 0 grados */
+  animation: orbitBlue 3s linear infinite;
+}
+
+.greenBuddy {
+  .head,
+  .body {
+    border: 1px solid #55801c;
+  }
+  /* El verde arranca la órbita desfasado a 180 grados (medio círculo de distancia) */
+  animation: orbitGreen 3s linear infinite;
+}
+
+/* --- ANIMACIONES CON ROTATE3D --- */
+
+/* 
+  Definimos un vector de rotación inclinado en el espacio:
+  X = 0.3 (inclinación hacia adelante)
+  Y = 1.0 (rotación principal de lado a lado)
+  Z = 0.2 (torsión diagonal para el look MSN)
+*/
+
+@keyframes orbitBlue {
+  0% {
+    transform: translateX(-40px) translateY(0px) scale(0.9);
+    z-index: 1;
+  }
+  25% {
+    transform: translateX(0px) translateY(15px) scale(1.2); /* Adelante (Grande) */
+    z-index: 10;
+  }
+  50% {
+    transform: translateX(40px) translateY(0px) scale(0.9);
+    z-index: 1;
+  }
+  75% {
+    transform: translateX(0px) translateY(-15px) scale(0.8); /* Atrás (Chico) */
+    z-index: -1;
+  }
+  100% {
+    transform: translateX(-40px) translateY(0px) scale(0.9);
+    z-index: 1;
+  }
+}
+
+@keyframes orbitGreen {
+  0% {
+    transform: translateX(40px) translateY(0px) scale(0.9);
+    z-index: -1;
+  }
+  25% {
+    transform: translateX(0px) translateY(-15px) scale(0.8); /* Atrás (Chico) */
+    z-index: -1;
+  }
+  50% {
+    transform: translateX(-40px) translateY(0px) scale(0.9);
+    z-index: 1;
+  }
+  75% {
+    transform: translateX(0px) translateY(15px) scale(1.2); /* Adelante (Grande) */
+    z-index: 10;
+  }
+  100% {
+    transform: translateX(40px) translateY(0px) scale(0.9);
+    z-index: -1;
+  }
+}

@@ -3,9 +3,12 @@ import styles from "./ChatWindow.module.scss";
 import WindowHeader from "./WindowHeader";
 import WindowMenu from "./WindowMenu";
 import Image from "next/image";
-import chatContent from "@/data/chatContent";
+import chatContentTranslations from "@/data/chatContent";
 import inputButtons from "@/data/inputButtons";
 import { menuItems } from "@/data/menuData";
+import { ChatType } from "@/data/contactsData";
+import Link from "next/link";
+import { useLang } from "@/context/LanguageContext";
 
 interface Message {
   user: string;
@@ -27,9 +30,10 @@ type AutoMessage = {
 
 interface ChatWindowProps {
   contactName?: string;
+  customAvatar?: string;
   contactStatus?: string;
   contactMessage?: string;
-  chatType?: "about" | "stack" | "work" | "projects" | "contact" | "default";
+  chatType?: ChatType;
   onClose?: () => void;
   onMinimize?: () => void;
   onMaximize?: () => void;
@@ -42,7 +46,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   onMinimize,
   onMaximize,
 }) => {
-  const [position, setPosition] = useState({ x: 100, y: 100 });
+  const [position, setPosition] = useState({ x: 700, y: 100 });
   const [dragging, setDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
   const [isShaking, setIsShaking] = useState(false);
@@ -51,6 +55,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const [isTyping, setIsTyping] = useState(false);
   const [isAutoSequenceActive, setIsAutoSequenceActive] = useState(false);
   const timeoutRefs = useRef<NodeJS.Timeout[]>([]);
+  const { t, lang } = useLang();
 
   // Limpiar timeouts al desmontar
   useEffect(() => {
@@ -61,7 +66,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 
   // Inicializar mensajes automáticos según el tipo de chat
   useEffect(() => {
-    const content = chatContent[chatType as keyof typeof chatContent];
+    const content =
+      chatContentTranslations[lang][
+        chatType as keyof typeof chatContentTranslations
+      ];
     if (content && content.messages.length > 0) {
       setIsAutoSequenceActive(true);
       startAutoMessageSequence(content.messages);
@@ -88,8 +96,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         const messageTimeout = setTimeout(() => {
           const newMessage: Message = {
             user:
-              chatContent[chatType as keyof typeof chatContent]?.contactName ||
-              "Flor",
+              chatContentTranslations[lang][
+                chatType as keyof typeof chatContentTranslations
+              ]?.contactName || "Flor",
             text: msgData.text,
             time: new Date().toLocaleTimeString([], {
               hour: "2-digit",
@@ -150,7 +159,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   };
 
   const handleKeyPress = (
-    e: React.KeyboardEvent<HTMLTextAreaElement>
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
   ): void => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -213,7 +222,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   }, [dragging]);
 
   const displayContactName =
-    chatContent[chatType as keyof typeof chatContent]?.contactName ||
+    chatContentTranslations[lang][
+      chatType as keyof typeof chatContentTranslations
+    ]?.contactName ||
     contactName ||
     "Chat";
 
@@ -235,7 +246,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         onClose={onClose}
       />
 
-      <WindowMenu menuItems={menuItems} />
+      <WindowMenu menuItems={menuItems[lang]} />
 
       <div>
         <Image
@@ -263,7 +274,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                     >
                       {msg.user}
                     </span>
-                    <span className={styles.messageLabel}>says:</span>
+                    <span className={styles.messageLabel}>{t("says")}</span>
                   </div>
                   <div className={styles.messageText}>
                     {msg.text}
@@ -284,12 +295,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               {isTyping && (
                 <div className={styles.typingIndicator}>
                   <span className={styles.username}>
-                    {chatContent[chatType as keyof typeof chatContent]
-                      ?.contactName || "Flor"}
+                    {chatContentTranslations[lang][
+                      chatType as keyof typeof chatContentTranslations
+                    ]?.contactName || "Flor"}
                   </span>
-                  <span className={styles.messageLabel}>
-                    está escribiendo...
-                  </span>
+                  <span className={styles.messageLabel}>{t("typing")}</span>
                   <div className={styles.typingDots}>
                     <span></span>
                     <span></span>
@@ -322,9 +332,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                   onKeyDown={handleKeyPress}
                   className={styles.messageInput}
                   placeholder={
-                    isAutoSequenceActive
-                      ? "Esperá a que termine de escribir..."
-                      : "Type a message..."
+                    isAutoSequenceActive ? t("waitUntilFinish") : t("writeMsg")
                   }
                   disabled={isAutoSequenceActive}
                 />
@@ -334,9 +342,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                     onClick={handleSendMessage}
                     disabled={isAutoSequenceActive}
                   >
-                    Enviar
+                    {t("send")}
                   </button>
-                  <button className={styles.searchButton}>Buscar</button>
+                  <button className={styles.searchButton}>{t("search")}</button>
                 </div>
               </div>
               <div className={styles.chatFooter}>
@@ -365,13 +373,43 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         </div>
         <div className={styles.avatarArea}>
           <div className={styles.avatarContainer}>
-            <Image
-              src="/duck-avatar.jpeg"
-              alt="Avatar"
-              width={100}
-              height={100}
-              className={styles.avatar}
-            />
+            {chatContentTranslations[lang][
+              chatType as keyof typeof chatContentTranslations
+            ]?.proyectUrl ? (
+              <Link
+                href={
+                  chatContentTranslations[lang][
+                    chatType as keyof typeof chatContentTranslations
+                  ]?.proyectUrl || ""
+                }
+                target="_blank"
+              >
+                <Image
+                  src={
+                    chatContentTranslations[lang][
+                      chatType as keyof typeof chatContentTranslations
+                    ]?.customAvatar || "/duck-avatar.jpeg"
+                  }
+                  alt="Avatar"
+                  width={100}
+                  height={100}
+                  className={styles.avatar}
+                />
+                <p>{t("clickMe")}</p>
+              </Link>
+            ) : (
+              <Image
+                src={
+                  chatContentTranslations[lang][
+                    chatType as keyof typeof chatContentTranslations
+                  ]?.customAvatar || "/duck-avatar.jpeg"
+                }
+                alt="Avatar"
+                width={100}
+                height={100}
+                className={styles.avatar}
+              />
+            )}
           </div>
           <div className={styles.avatarContainer}>
             <Image
