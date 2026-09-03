@@ -18,7 +18,7 @@
 
 .loadingXPvideo {
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   background-color: #000;
   display: flex;
   justify-content: center;
@@ -27,7 +27,7 @@
 
 .loadingPage {
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -50,7 +50,7 @@
 
 .mainLoading {
   background-color: #5a7edc;
-  height: calc(100vh - 200px);
+  height: calc(100svh - 200px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,7 +63,7 @@
 
   .light {
     position: absolute;
-    height: calc(100vh - 200px);
+    height: calc(100svh - 200px);
     width: 100vw;
     background: radial-gradient(
       circle at left top,
